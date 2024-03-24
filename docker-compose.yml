@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  admin:
+  adminlte:
     build: .
     command: npm run dev
     ports:
@@ -9,3 +9,13 @@ services:
     volumes:
     - .:/code
     - /code/node_modules
+  webserver:
+    build:
+      context: ./docker-services/nginx
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - adminlte
